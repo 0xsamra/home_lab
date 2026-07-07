@@ -44,6 +44,7 @@ SIEM logs flagged the source IP under Critical severity, showing repeated SSH lo
 Action Taken:
 The IP was investigated using IP Hunter, confirming its malicious history. The alert was escalated to Will Griffin (Senior Security Analyst) for review. The IP was subsequently blocked on the firewall, with a comment added documenting the action and justification.
 Status: Closed — Threat contained, no further action required.
+
 Ticket #002 
  Date: July 4, 2026
 Alert: RDP Brute Force Attempt
@@ -55,6 +56,18 @@ Summary:
 Action: IP investigated, escalated to SOC L2, 
 blocked at firewall.
 Status: Closed — Threat contained.
+
+Ticket #003
+Date: July 07, 2026
+Analyst: Samra (0xsamra)
+Severity: High
+Summary:
+An employee reported their workstation running unusually slow. Investigation revealed an unknown process "svchost32.exe" consuming 90% CPU. The process was created at 2AM with no authorized personnel present and no scheduled tasks approved for that timeframe. The legitimate Windows process is "svchost.exe" — the extra "32" indicates a likely malware impersonation.
+Evidence:
+SIEM logs flagged the unauthorized process "svchost32.exe" under High severity, showing abnormal CPU consumption of 90% initiated at 2AM. No scheduled tasks or authorized processes matched this activity during that window.
+Action Taken:
+The process was investigated using a process scanner, confirming it as unauthorized and suspicious. The affected machine was isolated from the network to prevent potential lateral movement. The alert was escalated to SOC L2 Analyst for deeper investigation and malware analysis.
+Status: Open — Threat contained, pending further investigation by SOC L2.
 
  Key Knowledge
  Critical Ports for SOC Analysts
