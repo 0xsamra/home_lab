@@ -70,6 +70,7 @@ The process was investigated using a process scanner, confirming it as unauthori
 Status: Open — Threat contained, pending further investigation by SOC L2.
 
  Key Knowledge
+ 
  Critical Ports for SOC Analysts
 | Protocol | Port | Risk |
 |---|---|---|
@@ -79,11 +80,24 @@ Status: Open — Threat contained, pending further investigation by SOC L2.
 | DNS | 53 | Data exfiltration |
 | FTP | 21 | Plain text credentials |
 
+ Cyber Kill Chain
+| Stage | Attacker Action | SOC Response |
+|---|---|---|
+| Reconnaissance | Gathering target info | Monitor scanning activity |
+| Weaponization | Creating malware | Threat intelligence feeds |
+| Delivery | Phishing email/USB | Email filtering |
+| Exploitation | Triggering vulnerability | Patch management, EDR |
+| Installation | Installing backdoor | Antivirus, behavioral analysis |
+| C2 | Attacker controls system | Block suspicious outbound traffic |
+| Actions on Objectives | Stealing data/ransomware | DLP, network segmentation |
+
 Currently Learning 
 
-TryHackMe SOC Level 1 path 
-ISC2 CC certification prep 
-
+- TryHackMe SOC Level 1 path
+- ISC2 CC certification prep
+- Fortinet NSE — Introduction to Threat Landscape (completed)
+- Fortinet Technical Introduction to Cybersecurity (in progress)
+  
 Certifications In Progress 
 
 CEH — Expected August 2026 
