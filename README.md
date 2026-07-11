@@ -69,6 +69,37 @@ Action Taken:
 The process was investigated using a process scanner, confirming it as unauthorized and suspicious. The affected machine was isolated from the network to prevent potential lateral movement. The alert was escalated to SOC L2 Analyst for deeper investigation and malware analysis.
 Status: Open — Threat contained, pending further investigation by SOC L2.
 
+Ticket #004 — OSINT Threat Intelligence Report
+Date: July 11, 2026
+Analyst: Samra (0xsamra)
+Type: Threat Intelligence Investigation
+Severity: High
+Target IP: 185.234.219.4
+WHOIS Findings:
+WHOIS lookup performed on Kali Linux identified IP 185.234.219.4 as registered in Switzerland however belonging to a Lithuanian organization — "IT Business Solutions, MB." This geographic mismatch is a significant red flag. The abuse contact provided was a personal Gmail address (andrius.peteraitis@gmail.com) rather than a corporate email, indicating lack of legitimate organizational accountability. The IP block was allocated in November 2023 under ASN AS211415.
+VirusTotal / AbuseIPDB Findings:
+VirusTotal identified the IP as belonging to "Karolio IT Paslaugos, UAB," registered in Austria with organizational presence in Lithuania. Usage type was confirmed as Data Center/Web Hosting — not a residential or corporate user IP, consistent with attack infrastructure.
+AbuseIPDB confirmed 6 independent abuse reports from 6 distinct sources across China, Poland, USA, Netherlands and Germany. First reported on March 14, 2026. Attack categories include SSH Brute Force, Port Scanning, and Credential Stuffing. The IP was flagged by ThreatBook Intelligence as VPN/Proxy infrastructure and was caught in an SSH honeypot (endlessh tarpit), confirming active malicious behavior.
+Nmap Findings:
+Network Mapper scan of all 1000 ports returned no response — all ports filtered. The host was confirmed active but fully firewalled, indicating deliberately hardened attack infrastructure. This is consistent with attacker-controlled systems that probe outbound while blocking inbound reconnaissance.
+Traceroute Findings:
+Traceroute reached only Hop 1 (10.0.2.2 — VirtualBox gateway). All subsequent hops returned no response, indicating the attacker's network is deliberately dropping ICMP packets to prevent route tracing. This is a further indicator of intentionally hidden infrastructure.
+SOC Verdict: CONFIRMED MALICIOUS 🚨
+Supporting evidence:
+
+Geographic mismatch between registration and organization
+Personal Gmail abuse contact — not legitimate business
+Data center IP — not associated with real end user
+6 independent reports from 5 countries
+Confirmed SSH brute force and credential stuffing activity
+VPN/Proxy infrastructure concealing true origin
+Caught in SSH honeypot
+All ports hardened against inbound scanning
+
+Recommended Action:
+Based on confirmed malicious activity, the IP was escalated to SOC L2 Analyst for review. The IP was permanently blocked at the firewall. A formal abuse report was submitted to AbuseIPDB. The IP has been added to the threat intelligence blocklist for ongoing monitoring.
+Status: Closed — Threat contained and reported.
+
  Key Knowledge
  
  Critical Ports for SOC Analysts
