@@ -151,6 +151,61 @@ Based on confirmed malicious activity, the IP was escalated to SOC L2 Analyst fo
 
 Closed — Threat contained and reported.
 
+# Ticket #004 — PCAP Traffic Analysis
+
+**Date:** July 15, 2026
+**Analyst:** Samra (0xsamra)
+**Severity:** High
+**Type:** Practice — Traffic Analysis
+
+---
+
+## Summary
+A pcap file captured during a previous DVWA lab session was analyzed using Wireshark. Investigation revealed unencrypted HTTP traffic containing multiple successful login attempts against a DVWA web application. The attacker gained unauthorized access twice across three separate TCP sessions.
+
+---
+
+## Evidence
+
+* **Source IP:** 192.168.56.101 (Attacker — Kali Linux)
+* **Target IP:** 192.168.56.102 (Victim — DVWA/Metasploitable)
+* **Protocol:** HTTP (unencrypted), TCP
+* **Port Targeted:** 80
+
+---
+
+## HTTP Findings
+
+* Login credentials transmitted over plain HTTP — no HTTPS encryption
+* Credentials visible in plaintext within Wireshark
+* Two successful POST requests to `/dvwa/login.php` confirmed
+* Attacker demonstrated prior knowledge of exact target path
+* Following successful login, attacker navigated to `/dvwa/index.php`
+* Active exploitation session confirmed
+
+---
+
+## TCP Findings
+
+* Three separate TCP sessions established and properly terminated
+* Clean FIN/ACK handshakes — deliberate controlled behavior
+* Each session followed complete SYN → SYN/ACK → ACK → FIN/ACK lifecycle
+* Manual interaction confirmed — not automated scanning
+
+---
+
+## Recommended Actions
+
+* Enforce HTTPS — disable plain HTTP immediately
+* Implement strong password policy
+* Enable account lockout after failed login attempts
+* Monitor for repeated POST requests to login pages
+* Implement Web Application Firewall (WAF)
+
+---
+
+**Status:** Practice Exercise — Closed
+
  Key Knowledge
  
  Critical Ports for SOC Analysts
