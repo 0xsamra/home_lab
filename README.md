@@ -228,6 +228,14 @@ A pcap file captured during a previous DVWA lab session was analyzed using Wires
 | C2 | Attacker controls system | Block suspicious outbound traffic |
 | Actions on Objectives | Stealing data/ransomware | DLP, network segmentation |
 
+## Investigation Reports
+
+### 1. OSINT Report — IP 185.234.219.4
+- **Type:** Threat Intelligence / OSINT
+- **Verdict:** Malicious
+- **Tools:** WHOIS, Nmap, Traceroute, VirusTotal, AbuseIPDB
+- [View Full Report](osint-report-185.234.219.4.md)
+
 Currently Learning 
 
 - TryHackMe SOC Level 1 path
