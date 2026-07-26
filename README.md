@@ -214,12 +214,12 @@ A pcap file captured during a previous DVWA lab session was analyzed using Wires
 - TryHackMe SOC Level 1 path
 - ISC2 CC certification prep
 - Fortinet NSE — Introduction to Threat Landscape ✅ Completed
-- Fortinet NSE 1 — Cybersecurity and Cloud Fundamentals (in progress)
 
 ---
 
-## Certifications
-- Fortinet FCF — Certified Fundamentals ✅ July 2026
+## Certifications Earned
+- ✅ Fortinet — Introduction to the Threat Landscape (July 2026)
+- ✅ Fortinet — Cybersecurity and Cloud Fundamentals (July 2026)
 
 ## Certifications In Progress
 - CEH — Expected August 2026
