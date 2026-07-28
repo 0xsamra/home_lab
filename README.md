@@ -208,6 +208,12 @@ A pcap file captured during a previous DVWA lab session was analyzed using Wires
 - **Tools:** WHOIS, Nmap, Traceroute, VirusTotal, AbuseIPDB
 - [View Full Report](osint-report-185.234.219.4.md)
 
+- ### 2. OSINT Report — Domain emotet.com
+- **Type:** Threat Intelligence / OSINT
+- **Verdict:** Non-Malicious ✅
+- **Tools:** WHOIS, NSLOOKUP, VirusTotal, ThreatFox, URLScan
+- [View Full Report](osint-report-emotet.com.md)
+
 ---
 
 ## Currently Learning
