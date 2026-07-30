@@ -172,7 +172,7 @@ A pcap file captured during a previous DVWA lab session was analyzed using Wires
 
 **Status:** Practice Exercise — Closed
 
-# Security Incident Ticket — 006
+### Ticket #006 — Security Incident 
 
 **Ticket ID:** INC-006
 **Title:** Suspected Command-and-Control (C2) DNS Beaconing Detected
