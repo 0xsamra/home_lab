@@ -172,6 +172,79 @@ A pcap file captured during a previous DVWA lab session was analyzed using Wires
 
 **Status:** Practice Exercise — Closed
 
+# Security Incident Ticket — 006
+
+**Ticket ID:** INC-006
+**Title:** Suspected Command-and-Control (C2) DNS Beaconing Detected
+**Date/Time Detected:** July 28, 2026 — 10:37 AM
+**Analyst:** Samra Sharafat Ali (0xsamra)
+**Severity:** High
+**Status:** Closed
+
+---
+
+## Incident Summary
+
+The SIEM generated an alert after detecting repeated outbound DNS queries from an internal workstation to a domain identified as known Command-and-Control (C2) infrastructure. The DNS requests occur every 60 seconds, consistent with automated beaconing behavior commonly associated with malware.
+
+The affected workstation is assigned to an HR employee who reported no unusual activity or suspicious behavior on the device.
+
+---
+
+## Affected Asset
+
+| Field | Detail |
+|---|---|
+| **Host** | HR Employee Workstation |
+| **Department** | Human Resources |
+| **Detection Source** | SIEM |
+| **Indicator** | Repeated outbound DNS queries to known C2 domain |
+
+---
+
+## Indicators of Compromise (IOCs)
+
+- Outbound DNS requests to a domain flagged as C2 infrastructure
+- Beaconing interval of approximately 60 seconds
+- Potential malware communication with attacker-controlled server
+
+---
+
+## Initial Analysis
+
+The regular 60-second interval of DNS requests strongly suggests automated malware beaconing rather than normal user activity. Since the destination domain is already classified as malicious, the workstation may be compromised and attempting to communicate with an attacker-controlled server. The HR employee's lack of awareness is consistent with silent background malware operation.
+
+---
+
+## Action Taken
+
+- Workstation immediately isolated from the network pending investigation
+- Malicious domain and associated IPs blocked at firewall and DNS filter
+- Alert escalated to SOC L2 Analyst for forensic analysis
+- HR employee notified and credential reset initiated
+- Endpoint malware scan launched and forensic evidence collected
+
+---
+
+## Recommendations
+
+1. Review DNS, network, and endpoint logs for additional malicious activity
+2. Monitor environment for similar beaconing from other internal hosts
+3. Conduct full forensic investigation to determine infection vector
+4. Assess scope — determine if other workstations contacted same C2 domain
+5. Submit IOCs to threat intelligence platform for broader monitoring
+
+---
+
+## Conclusion
+
+Evidence indicates a likely malware infection communicating with a known C2 server through periodic DNS beaconing. Containment actions have been taken. Forensic investigation is underway to determine full scope and prevent further compromise.
+
+---
+
+**Status:** Closed — Contained, escalated to SOC L2 for investigation
+**Type:** Practice Scenario
+
 ---
 
 ## Key Knowledge
