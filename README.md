@@ -271,6 +271,94 @@ Evidence indicates a likely malware infection communicating with a known C2 serv
 | C2 | Attacker controls system | Block suspicious outbound traffic |
 | Actions on Objectives | Stealing data/ransomware | DLP, network segmentation |
 
+# Security Incident Ticket — INC-007
+
+**Ticket ID:** INC-007
+**Title:** Unauthorized Administrator Account Creation on Critical Database Server
+**Date/Time Detected:** August 04, 2026 — 11:45 PM
+**Analyst:** Samra (0xsamra)
+**Severity:** Critical
+**Status:** Open — Under Investigation
+
+---
+
+## Incident Summary
+
+SIEM detected creation of a new administrator account named **"admin_backup"** on a
+critical database server at 11:45 PM. No change management ticket exists for this
+action and the IT team has no knowledge of this account creation. The affected server
+hosts sensitive customer financial data, making this a critical priority incident.
+
+---
+
+## Affected Asset
+
+| Field | Detail |
+|---|---|
+| **Host** | Critical Database Server |
+| **Data hosted** | Customer Financial Data |
+| **Detection Source** | SIEM |
+| **Unauthorized Account** | admin_backup |
+| **Time of Creation** | 11:45 PM |
+
+---
+
+## Indicators of Compromise (IOCs)
+
+- Unauthorized administrator account "admin_backup" created outside business hours
+- No change management ticket associated with account creation
+- IT team has no knowledge of this action
+- Account created on server hosting sensitive financial data
+- Creation time (11:45 PM) inconsistent with normal administrative activity
+
+---
+
+## Initial Analysis
+
+The creation of an administrator account outside business hours with no change
+management approval is a significant red flag. This behavior is consistent with:
+- An attacker establishing persistence after initial compromise
+- A malicious insider creating a backdoor account
+- Privilege escalation following unauthorized access
+
+The timing (11:45 PM) and lack of documentation strongly suggest unauthorized
+activity rather than legitimate administrative work.
+
+---
+
+## Action Taken
+
+- Unauthorized account "admin_backup" immediately disabled pending investigation
+- Alert escalated to SOC L2 Analyst for deeper forensic investigation
+- IT team notified and change management team alerted
+- Server access logs pulled for review of all activity around account creation time
+- Network connections to/from server monitored for suspicious activity
+
+---
+
+## Recommendations
+
+1. Perform full forensic investigation to identify account creator
+2. Review all actions performed using "admin_backup" account
+3. Check for additional unauthorized accounts or backdoors
+4. Review server access logs for signs of prior compromise
+5. Implement alerts for all privileged account creations going forward
+6. Enforce change management policy for all administrative actions
+
+---
+
+## Conclusion
+
+Unauthorized administrator account creation on a financial data server outside
+business hours with no documentation is a critical security incident. Immediate
+containment actions taken. Full forensic investigation underway to determine
+origin, scope, and intent.
+
+---
+
+**Status:** Open — Account disabled, escalated to SOC L2
+**Type:** Detection — Unauthorized Privilege Escalation / Persistence
+
 ---
 
 ## Investigation Reports
