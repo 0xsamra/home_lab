@@ -333,6 +333,103 @@ origin, scope, and intent.
 **Status:** Open — Account disabled, escalated to SOC L2
 **Type:** Detection — Unauthorized Privilege Escalation / Persistence
 
+# Security Incident Ticket — INC-008
+
+**Ticket ID:** INC-008
+**Title:** VPN Brute Force Attack with Successful Unauthorized Login
+**Date/Time Detected:** August 05, 2026 — 2:00 AM
+**Analyst:** Samra (0xsamra)
+**Severity:** Critical
+**Status:** Open — Under Investigation
+
+---
+
+## Incident Summary
+
+SIEM detected over 500 failed login attempts against the company VPN portal from a
+single IP address **45.33.32.156** over a 10-minute window at 2:00 AM — consistent
+with an automated brute force attack. Following the failed attempts, **one successful
+login was recorded from the same IP**. The compromised account belongs to a senior
+finance manager who is currently on vacation abroad, making legitimate access highly
+unlikely.
+
+---
+
+## Affected Assets
+
+| Field | Detail |
+|---|---|
+| **Host** | Company VPN Portal |
+| **Compromised Account** | Senior Finance Manager |
+| **Detection Source** | SIEM |
+| **Detection Time** | 2:00 AM — August 05, 2026 |
+| **Suspected IP** | 45.33.32.156 |
+| **Attack Duration** | 10 minutes |
+
+---
+
+## Indicators of Compromise (IOCs)
+
+- 500+ failed VPN login attempts from single IP in 10 minutes
+- One successful login immediately following brute force activity
+- Login at 2:00 AM — inconsistent with normal business hours
+- Account owner confirmed abroad on vacation — cannot be legitimate login
+- Single source IP — consistent with automated credential stuffing tool
+- IP: 45.33.32.156 — requires threat intelligence lookup
+
+---
+
+## Initial Analysis
+
+The successful login following 500 failed attempts at 2:00 AM is a critical security
+incident. This pattern is consistent with:
+- Automated brute force or credential stuffing attack
+- Attacker gaining unauthorized access to VPN using compromised credentials
+- Potential data exfiltration targeting financial data accessible via this account
+
+The account owner's confirmed absence abroad makes any legitimate login from this
+IP impossible. This is an active compromise requiring immediate containment.
+
+---
+
+## Action Taken
+
+- IP **45.33.32.156** immediately blocked at firewall
+- Compromised VPN account disabled pending investigation
+- Active VPN session terminated immediately
+- Alert escalated to SOC L2 Analyst for forensic investigation
+- VPN access logs pulled for review of all activity post-login
+- Network connections monitored for data exfiltration activity
+- Finance manager notified through secure out-of-band channel
+- All credentials associated with this account flagged for mandatory reset
+
+---
+
+## Recommendations
+
+1. Investigate what data was accessed during the unauthorized VPN session
+2. Run threat intelligence lookup on 45.33.32.156
+3. Check for lateral movement from the VPN entry point
+4. Review all finance systems for unauthorized access post-login
+5. Implement MFA on VPN portal immediately to prevent recurrence
+6. Enable geo-blocking or impossible travel detection on VPN
+7. Audit all other accounts for similar brute force patterns
+
+---
+
+## Conclusion
+
+A confirmed unauthorized VPN login following automated brute force activity
+represents an active security breach. The account owner's confirmed absence
+eliminates any possibility of legitimate access. Immediate containment actions
+have been taken. Full forensic investigation is underway to determine scope
+of access and potential data exposure.
+
+---
+
+**Status:** Open — Account disabled, session terminated, escalated to SOC L2
+**Type:** Detection — Brute Force / Unauthorized Access / Potential Data Breach
+
 
 ---
 
