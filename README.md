@@ -245,32 +245,6 @@ Evidence indicates a likely malware infection communicating with a known C2 serv
 **Status:** Closed — Contained, escalated to SOC L2 for investigation
 **Type:** Practice Scenario
 
----
-
-## Key Knowledge
-
-### Critical Ports for SOC Analysts
-
-| Protocol | Port | Risk |
-|---|---|---|
-| SSH | 22 | Brute force |
-| RDP | 3389 | Most attacked globally |
-| SMB | 445 | EternalBlue/Ransomware |
-| DNS | 53 | Data exfiltration |
-| FTP | 21 | Plain text credentials |
-
-### Cyber Kill Chain
-
-| Stage | Attacker Action | SOC Response |
-|---|---|---|
-| Reconnaissance | Gathering target info | Monitor scanning activity |
-| Weaponization | Creating malware | Threat intelligence feeds |
-| Delivery | Phishing email/USB | Email filtering |
-| Exploitation | Triggering vulnerability | Patch management, EDR |
-| Installation | Installing backdoor | Antivirus, behavioral analysis |
-| C2 | Attacker controls system | Block suspicious outbound traffic |
-| Actions on Objectives | Stealing data/ransomware | DLP, network segmentation |
-
 # Security Incident Ticket — INC-007
 
 **Ticket ID:** INC-007
@@ -358,6 +332,34 @@ origin, scope, and intent.
 
 **Status:** Open — Account disabled, escalated to SOC L2
 **Type:** Detection — Unauthorized Privilege Escalation / Persistence
+
+
+---
+
+## Key Knowledge
+
+### Critical Ports for SOC Analysts
+
+| Protocol | Port | Risk |
+|---|---|---|
+| SSH | 22 | Brute force |
+| RDP | 3389 | Most attacked globally |
+| SMB | 445 | EternalBlue/Ransomware |
+| DNS | 53 | Data exfiltration |
+| FTP | 21 | Plain text credentials |
+
+### Cyber Kill Chain
+
+| Stage | Attacker Action | SOC Response |
+|---|---|---|
+| Reconnaissance | Gathering target info | Monitor scanning activity |
+| Weaponization | Creating malware | Threat intelligence feeds |
+| Delivery | Phishing email/USB | Email filtering |
+| Exploitation | Triggering vulnerability | Patch management, EDR |
+| Installation | Installing backdoor | Antivirus, behavioral analysis |
+| C2 | Attacker controls system | Block suspicious outbound traffic |
+| Actions on Objectives | Stealing data/ransomware | DLP, network segmentation |
+
 
 ---
 
