@@ -464,16 +464,21 @@ of access and potential data exposure.
 
 ### 1. OSINT Report — IP 185.234.219.4
 - **Type:** Threat Intelligence / OSINT
-- **Verdict:** Malicious
+- **Verdict:** Malicious 🚨
 - **Tools:** WHOIS, Nmap, Traceroute, VirusTotal, AbuseIPDB
 - [View Full Report](osint-report-185.234.219.4.md)
 
-- ### 2. OSINT Report — Domain emotet.com
+### 2. OSINT Report — Domain emotet.com
 - **Type:** Threat Intelligence / OSINT
 - **Verdict:** Non-Malicious ✅
 - **Tools:** WHOIS, NSLOOKUP, VirusTotal, ThreatFox, URLScan
 - [View Full Report](osint-report-emotet.com.md)
 
+### 3. OSINT Report — IP 45.33.32.156
+- **Type:** Threat Intelligence / OSINT
+- **Verdict:** Legitimate Public Test Server ✅
+- **Tools:** WHOIS, Nmap, VirusTotal, AbuseIPDB
+- [View Full Report](osint-report-45.33.32.156.md)
 ---
 
 ## Currently Learning
