@@ -20,19 +20,58 @@ Aspiring SOC Analyst | BSIT Cybersecurity student | 0xsamra
 - Nmap (Network Scanning)
 - Metasploit (Exploitation)
 - Burp Suite (Web Security)
+- VirusTotal (Threat Intelligence)
+- AbuseIPDB (IP Reputation)
+- ThreatFox (Malware IOC Database)
+- URLScan.io (URL Analysis)
+- Shodan (Passive Reconnaissance)
 
 ---
 
 ## Practical Exercises Completed
-- TryHackMe SOC Fundamentals
-- TryHackMe Defensive Security Intro
-- TryHackMe Junior Security Analyst Intro
+
+### TryHackMe Rooms
+- TryHackMe SOC Fundamentals ✅
+- TryHackMe Defensive Security Intro ✅
+- TryHackMe Junior Security Analyst Intro ✅
+- TryHackMe SOC Level 1 Path — In Progress
+- TryHackMe Intro to Cyber Threat Intel ✅
+- TryHackMe Threat Intelligence Tools ✅
+- TryHackMe Pyramid of Pain ✅
+
+### Log Analysis
 - Linux log analysis (auth.log, journalctl)
 - Windows Event Viewer investigation
-- SQL Injection, XSS testing on DVWA/Juice Shop
+- Advanced log analysis (grep, awk, tail, journalctl filters)
+- Log field extraction and IP identification
+
+### Network Analysis
 - Wireshark traffic capture and protocol filtering (HTTP, DNS, TCP)
 - Network protocol analysis (HTTP, HTTPS, SSH, RDP, DNS, FTP, SMB, SMTP)
-- TryHackMe SOC Level 1 Path — Room 2 completed
+- PCAP forensic analysis — credential extraction and attacker behavior identification
+- Network discovery scanning with Nmap
+- Institutional network reconnaissance (ping sweep)
+
+### OSINT & Threat Intelligence
+- IP investigation using WHOIS, Nmap, Traceroute, VirusTotal, AbuseIPDB
+- Domain investigation using WHOIS, URLScan, ThreatFox
+- Phishing email analysis — header inspection, IOC extraction
+- Threat actor campaign correlation across multiple incidents
+
+### Vulnerability & Exploitation (Lab Only)
+- SQL Injection, XSS, IDOR testing on DVWA/Juice Shop
+- Metasploit framework usage on Metasploitable2
+- Brute force simulation using Hydra
+- Password cracking with CUPP
+
+### SOC Operations
+- SIEM alert triage and investigation
+- Incident ticket writing (INC-001 through INC-009)
+- Phishing email analysis and header investigation
+- C2 beaconing detection
+- Brute force pattern recognition
+- Impossible travel detection
+- Credential theft scenario analysis
 
 ---
 
@@ -109,10 +148,10 @@ WHOIS lookup performed on Kali Linux identified IP 185.234.219.4 as registered i
 VirusTotal identified the IP as belonging to "Karolio IT Paslaugos, UAB," registered in Austria with organizational presence in Lithuania. Usage type was confirmed as Data Center/Web Hosting — not a residential or corporate user IP, consistent with attack infrastructure. AbuseIPDB confirmed 6 independent abuse reports from 6 distinct sources across China, Poland, USA, Netherlands and Germany. First reported on March 14, 2026. Attack categories include SSH Brute Force, Port Scanning, and Credential Stuffing. The IP was flagged by ThreatBook Intelligence as VPN/Proxy infrastructure and was caught in an SSH honeypot (endlessh tarpit), confirming active malicious behavior.
 
 **Nmap Findings:**
-Network Mapper scan of all 1000 ports returned no response — all ports filtered. The host was confirmed active but fully firewalled, indicating deliberately hardened attack infrastructure. This is consistent with attacker-controlled systems that probe outbound while blocking inbound reconnaissance.
+Network Mapper scan of all 1000 ports returned no response — all ports filtered. The host was confirmed active but fully firewalled, indicating deliberately hardened attack infrastructure.
 
 **Traceroute Findings:**
-Traceroute reached only Hop 1 (10.0.2.2 — VirtualBox gateway). All subsequent hops returned no response, indicating the attacker's network is deliberately dropping ICMP packets to prevent route tracing. This is a further indicator of intentionally hidden infrastructure.
+Traceroute reached only Hop 1 (10.0.2.2 — VirtualBox gateway). All subsequent hops returned no response, indicating deliberately hidden infrastructure.
 
 **SOC Verdict:** CONFIRMED MALICIOUS 🚨
 
@@ -125,9 +164,6 @@ Traceroute reached only Hop 1 (10.0.2.2 — VirtualBox gateway). All subsequent 
 - VPN/Proxy infrastructure concealing true origin
 - Caught in SSH honeypot
 - All ports hardened against inbound scanning
-
-**Recommended Action:**
-Based on confirmed malicious activity, the IP was escalated to SOC L2 Analyst for review. The IP was permanently blocked at the firewall. A formal abuse report was submitted to AbuseIPDB. The IP has been added to the threat intelligence blocklist for ongoing monitoring.
 
 **Status:** Closed — Threat contained and reported.
 
@@ -172,7 +208,9 @@ A pcap file captured during a previous DVWA lab session was analyzed using Wires
 
 **Status:** Practice Exercise — Closed
 
-### Ticket #006 — Security Incident 
+---
+
+### Ticket #006 — C2 DNS Beaconing Detection
 
 **Ticket ID:** INC-006
 **Title:** Suspected Command-and-Control (C2) DNS Beaconing Detected
@@ -181,17 +219,10 @@ A pcap file captured during a previous DVWA lab session was analyzed using Wires
 **Severity:** High
 **Status:** Closed
 
----
+**Incident Summary:**
+The SIEM generated an alert after detecting repeated outbound DNS queries from an internal workstation to a domain identified as known Command-and-Control (C2) infrastructure. The DNS requests occur every 60 seconds, consistent with automated beaconing behavior commonly associated with malware. The affected workstation is assigned to an HR employee who reported no unusual activity.
 
-## Incident Summary
-
-The SIEM generated an alert after detecting repeated outbound DNS queries from an internal workstation to a domain identified as known Command-and-Control (C2) infrastructure. The DNS requests occur every 60 seconds, consistent with automated beaconing behavior commonly associated with malware.
-
-The affected workstation is assigned to an HR employee who reported no unusual activity or suspicious behavior on the device.
-
----
-
-## Affected Asset
+**Affected Asset:**
 
 | Field | Detail |
 |---|---|
@@ -200,52 +231,24 @@ The affected workstation is assigned to an HR employee who reported no unusual a
 | **Detection Source** | SIEM |
 | **Indicator** | Repeated outbound DNS queries to known C2 domain |
 
----
-
-## Indicators of Compromise (IOCs)
-
+**Indicators of Compromise (IOCs):**
 - Outbound DNS requests to a domain flagged as C2 infrastructure
 - Beaconing interval of approximately 60 seconds
 - Potential malware communication with attacker-controlled server
 
----
-
-## Initial Analysis
-
-The regular 60-second interval of DNS requests strongly suggests automated malware beaconing rather than normal user activity. Since the destination domain is already classified as malicious, the workstation may be compromised and attempting to communicate with an attacker-controlled server. The HR employee's lack of awareness is consistent with silent background malware operation.
-
----
-
-## Action Taken
-
+**Action Taken:**
 - Workstation immediately isolated from the network pending investigation
 - Malicious domain and associated IPs blocked at firewall and DNS filter
 - Alert escalated to SOC L2 Analyst for forensic analysis
 - HR employee notified and credential reset initiated
 - Endpoint malware scan launched and forensic evidence collected
 
----
-
-## Recommendations
-
-1. Review DNS, network, and endpoint logs for additional malicious activity
-2. Monitor environment for similar beaconing from other internal hosts
-3. Conduct full forensic investigation to determine infection vector
-4. Assess scope — determine if other workstations contacted same C2 domain
-5. Submit IOCs to threat intelligence platform for broader monitoring
-
----
-
-## Conclusion
-
-Evidence indicates a likely malware infection communicating with a known C2 server through periodic DNS beaconing. Containment actions have been taken. Forensic investigation is underway to determine full scope and prevent further compromise.
-
----
-
 **Status:** Closed — Contained, escalated to SOC L2 for investigation
 **Type:** Practice Scenario
 
-# Security Incident Ticket — INC-007
+---
+
+### Ticket #007 — Unauthorized Account Creation
 
 **Ticket ID:** INC-007
 **Title:** Unauthorized Administrator Account Creation on Critical Database Server
@@ -254,86 +257,37 @@ Evidence indicates a likely malware infection communicating with a known C2 serv
 **Severity:** Critical
 **Status:** Open — Under Investigation
 
----
+**Incident Summary:**
+SIEM detected creation of a new administrator account named **"admin_backup"** on a critical database server at 11:45 PM. No change management ticket exists for this action and the IT team has no knowledge of this account creation. The affected server hosts sensitive customer financial data.
 
-## Incident Summary
-
-SIEM detected creation of a new administrator account named **"admin_backup"** on a
-critical database server at 11:45 PM. No change management ticket exists for this
-action and the IT team has no knowledge of this account creation. The affected server
-hosts sensitive customer financial data, making this a critical priority incident.
-
----
-
-## Affected Asset
+**Affected Asset:**
 
 | Field | Detail |
 |---|---|
 | **Host** | Critical Database Server |
-| **Data hosted** | Customer Financial Data |
+| **Data Hosted** | Customer Financial Data |
 | **Detection Source** | SIEM |
 | **Unauthorized Account** | admin_backup |
 | **Time of Creation** | 11:45 PM |
 
----
-
-## Indicators of Compromise (IOCs)
-
+**Indicators of Compromise (IOCs):**
 - Unauthorized administrator account "admin_backup" created outside business hours
 - No change management ticket associated with account creation
 - IT team has no knowledge of this action
-- Account created on server hosting sensitive financial data
 - Creation time (11:45 PM) inconsistent with normal administrative activity
 
----
-
-## Initial Analysis
-
-The creation of an administrator account outside business hours with no change
-management approval is a significant red flag. This behavior is consistent with:
-- An attacker establishing persistence after initial compromise
-- A malicious insider creating a backdoor account
-- Privilege escalation following unauthorized access
-
-The timing (11:45 PM) and lack of documentation strongly suggest unauthorized
-activity rather than legitimate administrative work.
-
----
-
-## Action Taken
-
+**Action Taken:**
 - Unauthorized account "admin_backup" immediately disabled pending investigation
 - Alert escalated to SOC L2 Analyst for deeper forensic investigation
 - IT team notified and change management team alerted
 - Server access logs pulled for review of all activity around account creation time
-- Network connections to/from server monitored for suspicious activity
-
----
-
-## Recommendations
-
-1. Perform full forensic investigation to identify account creator
-2. Review all actions performed using "admin_backup" account
-3. Check for additional unauthorized accounts or backdoors
-4. Review server access logs for signs of prior compromise
-5. Implement alerts for all privileged account creations going forward
-6. Enforce change management policy for all administrative actions
-
----
-
-## Conclusion
-
-Unauthorized administrator account creation on a financial data server outside
-business hours with no documentation is a critical security incident. Immediate
-containment actions taken. Full forensic investigation underway to determine
-origin, scope, and intent.
-
----
 
 **Status:** Open — Account disabled, escalated to SOC L2
 **Type:** Detection — Unauthorized Privilege Escalation / Persistence
 
-# Security Incident Ticket — INC-008
+---
+
+### Ticket #008 — VPN Brute Force Attack
 
 **Ticket ID:** INC-008
 **Title:** VPN Brute Force Attack with Successful Unauthorized Login
@@ -342,20 +296,10 @@ origin, scope, and intent.
 **Severity:** Critical
 **Status:** Open — Under Investigation
 
----
+**Incident Summary:**
+SIEM detected over 500 failed login attempts against the company VPN portal from a single IP address **45.33.32.156** over a 10-minute window at 2:00 AM. Following the failed attempts, one successful login was recorded. The compromised account belongs to a senior finance manager currently on vacation abroad.
 
-## Incident Summary
-
-SIEM detected over 500 failed login attempts against the company VPN portal from a
-single IP address **45.33.32.156** over a 10-minute window at 2:00 AM — consistent
-with an automated brute force attack. Following the failed attempts, **one successful
-login was recorded from the same IP**. The compromised account belongs to a senior
-finance manager who is currently on vacation abroad, making legitimate access highly
-unlikely.
-
----
-
-## Affected Assets
+**Affected Assets:**
 
 | Field | Detail |
 |---|---|
@@ -366,97 +310,71 @@ unlikely.
 | **Suspected IP** | 45.33.32.156 |
 | **Attack Duration** | 10 minutes |
 
----
-
-## Indicators of Compromise (IOCs)
-
+**Indicators of Compromise (IOCs):**
 - 500+ failed VPN login attempts from single IP in 10 minutes
 - One successful login immediately following brute force activity
 - Login at 2:00 AM — inconsistent with normal business hours
-- Account owner confirmed abroad on vacation — cannot be legitimate login
-- Single source IP — consistent with automated credential stuffing tool
-- IP: 45.33.32.156 — requires threat intelligence lookup
+- Account owner confirmed abroad on vacation
 
----
-
-## Initial Analysis
-
-The successful login following 500 failed attempts at 2:00 AM is a critical security
-incident. This pattern is consistent with:
-- Automated brute force or credential stuffing attack
-- Attacker gaining unauthorized access to VPN using compromised credentials
-- Potential data exfiltration targeting financial data accessible via this account
-
-The account owner's confirmed absence abroad makes any legitimate login from this
-IP impossible. This is an active compromise requiring immediate containment.
-
----
-
-## Action Taken
-
-- IP **45.33.32.156** immediately blocked at firewall
+**Action Taken:**
+- IP 45.33.32.156 immediately blocked at firewall
 - Compromised VPN account disabled pending investigation
 - Active VPN session terminated immediately
 - Alert escalated to SOC L2 Analyst for forensic investigation
-- VPN access logs pulled for review of all activity post-login
-- Network connections monitored for data exfiltration activity
 - Finance manager notified through secure out-of-band channel
-- All credentials associated with this account flagged for mandatory reset
-
----
-
-## Recommendations
-
-1. Investigate what data was accessed during the unauthorized VPN session
-2. Run threat intelligence lookup on 45.33.32.156
-3. Check for lateral movement from the VPN entry point
-4. Review all finance systems for unauthorized access post-login
-5. Implement MFA on VPN portal immediately to prevent recurrence
-6. Enable geo-blocking or impossible travel detection on VPN
-7. Audit all other accounts for similar brute force patterns
-
----
-
-## Conclusion
-
-A confirmed unauthorized VPN login following automated brute force activity
-represents an active security breach. The account owner's confirmed absence
-eliminates any possibility of legitimate access. Immediate containment actions
-have been taken. Full forensic investigation is underway to determine scope
-of access and potential data exposure.
-
----
 
 **Status:** Open — Account disabled, session terminated, escalated to SOC L2
 **Type:** Detection — Brute Force / Unauthorized Access / Potential Data Breach
 
-
 ---
 
-## Key Knowledge
+### Ticket #009 — Microsoft 365 Account Compromise
 
-### Critical Ports for SOC Analysts
+**Ticket ID:** INC-009
+**Title:** Suspected Microsoft 365 Account Compromise via Phishing
+**Date/Time Detected:** August 07, 2026 — 30 minutes post credential submission
+**Analyst:** Samra Sharafat Ali (0xsamra)
+**Severity:** High
+**Status:** Open — Under Investigation
 
-| Protocol | Port | Risk |
-|---|---|---|
-| SSH | 22 | Brute force |
-| RDP | 3389 | Most attacked globally |
-| SMB | 445 | EternalBlue/Ransomware |
-| DNS | 53 | Data exfiltration |
-| FTP | 21 | Plain text credentials |
+**Incident Summary:**
+A user based in Karachi received a phishing email impersonating Microsoft IT Support requesting they update their Office 365 credentials. The user submitted credentials on the linked page. 30 minutes later, SIEM detected a successful login from a Romanian IP — inconsistent with the user's location in Karachi.
 
-### Cyber Kill Chain
+**Affected Asset:**
 
-| Stage | Attacker Action | SOC Response |
-|---|---|---|
-| Reconnaissance | Gathering target info | Monitor scanning activity |
-| Weaponization | Creating malware | Threat intelligence feeds |
-| Delivery | Phishing email/USB | Email filtering |
-| Exploitation | Triggering vulnerability | Patch management, EDR |
-| Installation | Installing backdoor | Antivirus, behavioral analysis |
-| C2 | Attacker controls system | Block suspicious outbound traffic |
-| Actions on Objectives | Stealing data/ransomware | DLP, network segmentation |
+| Field | Detail |
+|---|---|
+| **Target** | Microsoft 365 User Account |
+| **User Location** | Karachi, Pakistan |
+| **Suspicious Login Location** | Romania |
+| **Attack Vector** | Phishing / Credential Theft |
+| **Detection Source** | SIEM |
+| **Time Gap** | ~30 minutes between credential submission and unauthorized login |
 
+**Indicators of Compromise (IOCs):**
+- Phishing email impersonating Microsoft IT Support
+- User submitted credentials to malicious harvesting page
+- Successful login from Romanian IP — impossible travel scenario
+- 30-minute window consistent with manual attacker use of stolen credentials
+
+**Containment Actions Taken:**
+- Affected user's Microsoft 365 password reset immediately
+- All active sessions and authentication tokens revoked
+- Unauthorized MFA methods and registered devices reviewed and removed
+- Phishing URL and domain blocked across email security and firewall
+- Phishing email removed from all affected mailboxes
+
+**Primary IOCs:**
+
+| IOC Type | Detail |
+|---|---|
+| **Attack Vector** | Phishing email impersonating Microsoft IT Support |
+| **Phishing URL** | Malicious credential harvesting page — under investigation |
+| **Source IP** | Romanian IP — outside expected user region |
+| **Compromised Account** | Microsoft 365 user — Karachi, Pakistan |
+
+**Status:** Open — Containment complete, forensic investigation ongoing
+**Type:** Phishing / Credential Theft / Unauthorized Account Access
 
 ---
 
@@ -479,12 +397,81 @@ of access and potential data exposure.
 - **Verdict:** Legitimate Public Test Server ✅
 - **Tools:** WHOIS, Nmap, VirusTotal, AbuseIPDB
 - [View Full Report](osint-report-45.33.32.156.md)
+
+---
+
+## Key Knowledge
+
+### Critical Ports for SOC Analysts
+
+| Protocol | Port | Risk |
+|---|---|---|
+| SSH | 22 | Brute force |
+| RDP | 3389 | Most attacked globally |
+| SMB | 445 | EternalBlue/Ransomware |
+| DNS | 53 | Data exfiltration |
+| FTP | 21 | Plain text credentials |
+| HTTP | 80 | Unencrypted traffic |
+| HTTPS | 443 | Encrypted — harder to inspect |
+| SMTP | 25 | Phishing delivery |
+
+### Cyber Kill Chain
+
+| Stage | Attacker Action | SOC Response |
+|---|---|---|
+| Reconnaissance | Gathering target info | Monitor scanning activity |
+| Weaponization | Creating malware | Threat intelligence feeds |
+| Delivery | Phishing email/USB | Email filtering |
+| Exploitation | Triggering vulnerability | Patch management, EDR |
+| Installation | Installing backdoor | Antivirus, behavioral analysis |
+| C2 | Attacker controls system | Block suspicious outbound traffic |
+| Actions on Objectives | Stealing data/ransomware | DLP, network segmentation |
+
+### Network Defense Concepts
+
+| Concept | Function | SOC Relevance |
+|---|---|---|
+| IDS | Detects intrusions — alerts only | Passive monitoring |
+| IPS | Detects AND blocks intrusions | Active blocking |
+| WAF | Filters web application traffic | Blocks SQLi, XSS |
+| DLP | Prevents data leaving network | Stops exfiltration |
+| NAC | Controls who joins the network | Blocks rogue devices |
+| SOAR | Automates SOC responses | Reduces manual work |
+| EDR | Monitors endpoints for threats | Endpoint detection |
+| XDR | EDR + network + cloud combined | Next gen detection |
+
+### Windows Event IDs — SOC Reference
+
+| Event ID | Meaning | Significance |
+|---|---|---|
+| 4624 | Successful login | Baseline — track anomalies |
+| 4625 | Failed login | Brute force indicator |
+| 4634 | Logoff | Session tracking |
+| 4648 | Login with explicit credentials | Lateral movement indicator |
+| 4672 | Admin privileges assigned | Privilege escalation |
+| 4688 | New process created | Malware execution |
+| 4698 | Scheduled task created | Persistence mechanism |
+| 4732 | User added to admin group | Privilege escalation |
+| 1102 | Audit log cleared | Attacker covering tracks 🚨 |
+
+### Phishing Red Flags
+
+| Indicator | Example |
+|---|---|
+| Spoofed sender domain | paypa1.com instead of paypal.com |
+| Suspicious Reply-To | harvest@malicious-domain.ru |
+| Malicious URL | http://paypal-secure-login.malicious-domain.ru |
+| Urgency language | "URGENT: Account suspended in 24 hours" |
+| Generic greeting | "Dear Customer" instead of your name |
+| HTTP not HTTPS | Unencrypted credential submission page |
+
 ---
 
 ## Currently Learning
 - TryHackMe SOC Level 1 path
-- ISC2 CC certification prep
 - Fortinet NSE — Introduction to Threat Landscape ✅ Completed
+- Fortinet NSE — Cybersecurity and Cloud Fundamentals ✅ Completed
+- Google Cybersecurity Certificate — In Progress
 
 ---
 
@@ -495,7 +482,6 @@ of access and potential data exposure.
 ## Certifications In Progress
 - CEH — Expected August 2026
 - NAVTTC Cybersecurity — Expected August 2026
-- ISC2 CC — In preparation
 
 ---
 
