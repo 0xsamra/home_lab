@@ -495,6 +495,12 @@ Fileless Malware / PowerShell Attack / Potential Financial Data Breach
 - **Tools:** WHOIS, Nmap, VirusTotal, AbuseIPDB
 - [View Full Report](osint-report-45.33.32.156.md)
 
+- ### 4. OSINT Report — IP 91.92.128.47
+- **Type:** Threat Intelligence / OSINT
+- **Verdict:** Suspicious -- Treat as malicious pending investigation
+- **Tools:** WHOIS, VirusTotal, AbuseIPDB
+- [View Full Report](osint-report-91.92.128.47.md)
+
 ---
 
 ## Key Knowledge
