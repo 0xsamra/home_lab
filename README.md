@@ -376,6 +376,99 @@ A user based in Karachi received a phishing email impersonating Microsoft IT Sup
 **Status:** Open — Containment complete, forensic investigation ongoing
 **Type:** Phishing / Credential Theft / Unauthorized Account Access
 
+# Security Incident Ticket — INC-010
+
+**Ticket ID:** INC-010
+**Title:** Fileless Malware Attack via PowerShell Encoded Command
+**Date/Time Detected:** August 09, 2026 — 6:00 PM
+**Analyst:** Samra Sharafat Ali (0xsamra)
+**Severity:** Critical
+**Status:** Open — Under Investigation
+
+---
+
+## Incident Summary
+
+SIEM detected PowerShell executing an encoded command on an accountant's workstation
+at 6:00 PM. The command connected to external IP **91.92.128.47**, downloaded a
+malicious file, and executed it directly in memory without writing to disk —
+consistent with a **fileless malware attack** designed to evade traditional
+antivirus detection.
+
+---
+
+## Affected Asset
+
+| Field | Detail |
+|---|---|
+| **Host** | Accountant's Workstation |
+| **Department** | Finance / Accounting |
+| **Detection Source** | SIEM |
+| **Detection Time** | 6:00 PM — August 09, 2026 |
+| **Process** | PowerShell — encoded command execution |
+| **External IP** | 91.92.128.47 |
+| **Execution Method** | In-memory / Fileless — no file written to disk |
+| **IT Change Ticket** | None — unauthorized activity |
+
+---
+
+## Indicators of Compromise (IOCs)
+
+- PowerShell executing encoded/obfuscated command on accountant workstation
+- Outbound connection to external IP 91.92.128.47
+- File downloaded and executed in memory — fileless execution
+- No IT change management ticket exists for this activity
+- Activity at 6:00 PM — end of business hours, reduced monitoring window
+
+---
+
+## Initial Analysis
+
+Fileless malware attacks operate entirely in memory — leaving no files on disk for
+traditional antivirus to detect. This technique is increasingly common in targeted
+attacks against financial departments. Key concerns:
+
+- PowerShell encoded commands are used to obfuscate malicious activity
+- In-memory execution bypasses file-based security controls
+- Finance department targeting suggests data theft or financial fraud intent
+- No IT authorization confirms this is unauthorized activity
+
+---
+
+## Action Taken
+
+- Affected workstation immediately isolated from network
+- PowerShell command decoded and process tree investigated
+- External IP 91.92.128.47 blocked at firewall
+- PowerShell, authentication, and network logs pulled for analysis
+- Checked for lateral movement from compromised workstation
+- Forensic evidence preserved before any remediation
+- Incident escalated to IR team for deeper investigation
+
+---
+
+## Recommendations
+
+1. Decode and fully analyze the PowerShell encoded command
+2. Run OSINT on 91.92.128.47 — determine attacker infrastructure
+3. Check for credential theft or lateral movement to other systems
+4. Review all finance systems for unauthorized access
+5. Implement PowerShell Constrained Language Mode across organization
+6. Enable Script Block Logging for all PowerShell activity
+7. Deploy EDR solution capable of detecting in-memory threats
+
+---
+
+## Impact Assessment
+
+Potential compromise of accountant workstation with possible exposure or theft
+of sensitive financial data. Fileless execution method suggests a sophisticated
+and targeted attack rather than opportunistic malware.
+
+---
+
+**Status:** Open — Workstation isolated, IR team engaged
+**Type:** Fileless Malware / PowerShell Attack / Potential Financial Data Breach
 ---
 
 ## Investigation Reports
