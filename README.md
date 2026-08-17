@@ -376,7 +376,7 @@ A user based in Karachi received a phishing email impersonating Microsoft IT Sup
 **Status:** Open — Containment complete, forensic investigation ongoing
 **Type:** Phishing / Credential Theft / Unauthorized Account Access
 
-# Security Incident Ticket — INC-010
+### Ticket #010 -- Fileless Malware Attack via PowerShell Encoded Command
 
 **Ticket ID:** INC-010
 **Title:** Fileless Malware Attack via PowerShell Encoded Command
@@ -467,8 +467,8 @@ and targeted attack rather than opportunistic malware.
 
 ---
 
-**Status:** Open — Workstation isolated, IR team engaged
-**Type:** Fileless Malware / PowerShell Attack / Potential Financial Data Breach
+## Status: Open — Workstation isolated, IR team engaged
+## Type: Fileless Malware / PowerShell Attack / Potential Financial Data Breach
 ---
 
 ## Investigation Reports
