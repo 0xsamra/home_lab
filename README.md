@@ -533,7 +533,10 @@ Key observations:
 3. Review PAM/sshd config — investigate why a valid user triggered "non-existent user" classification
 4. Add active-response rule (e.g., auto-block IP after N failed attempts) as next lab milestone
 
+## Wazuh Dashboard
 <img width="956" height="436" alt="wazuh2" src="https://github.com/user-attachments/assets/53fbf109-2276-4fc8-b62e-98ce9d029d4b" />
+
+
 <img width="959" height="437" alt="wazuh3" src="https://github.com/user-attachments/assets/7007c89b-b965-4cfa-ab58-4dc2fe97786e" />
 
 ---
