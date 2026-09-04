@@ -596,4 +596,4 @@ Fileless Malware / PowerShell Attack / Potential Financial Data Breach
 ## Wazuh SIEM Lab — Live Screenshots
 
 ### Wazuh Dashboard — Kali Agent Active
-![Wazuh Dashboard](<img width="959" height="437" alt="wazuh 1" src="https://github.com/user-attachments/assets/0d61f31c-6b35-482c-b706-233f7d7cac5a" />)
+<img width="959" height="437" alt="wazuh 1" src="https://github.com/user-attachments/assets/0d61f31c-6b35-482c-b706-233f7d7cac5a" />
