@@ -475,6 +475,69 @@ Open — Workstation isolated, IR team engaged
 Fileless Malware / PowerShell Attack / Potential Financial Data Breach
 ---
 
+### Ticket #011 -- SSH Brute Force Attack Detected via Wazuh SIEM
+**Ticket ID:** INC-011
+**Title:** SSH Brute Force Attempt Against wazuh-server (Simulated)
+**Date/Time Detected:** September 04, 2026 — 1:19 PM
+**Analyst:** Samra Sharafat Ali (0xsamra)
+**Severity:** Low-Medium
+**Status:** Closed — Simulated/Confirmed Detection
+---
+## Incident Summary
+Wazuh SIEM detected a series of failed SSH authentication attempts against
+**wazuh-server (192.168.56.102)** originating from **kali-agent**. The activity
+matched a password-guessing / brute-force pattern — multiple rapid login attempts
+against user `samra` using a wordlist attack tool (Hydra). No successful
+authentication occurred.
+---
+## Affected Asset
+| Field | Detail |
+|---|---|
+| **Host** | wazuh-server |
+| **Department** | Home Lab / SOC Training Environment |
+| **Detection Source** | Wazuh SIEM |
+| **Detection Time** | 1:19 PM — September 04, 2026 |
+| **Process** | sshd / PAM authentication |
+| **Source Host** | kali-agent |
+| **Execution Method** | Remote SSH login attempts (password guessing) |
+| **Attack Tool** | Hydra v9.7 |
+---
+## Indicators of Compromise (IOCs)
+- 32 authentication-failure events generated in short window
+- Rule 5710 — sshd: Attempt to login using a non-existent user
+- Rule 5503 — PAM: User login failed
+- Source: kali-agent → Target: wazuh-server, port 22
+- 0 successful authentications recorded
+- MITRE ATT&CK: T1110.001 (Password Guessing), T1021.004 (SSH Lateral Movement)
+---
+## Initial Analysis
+This activity matches a standard SSH brute-force / password-guessing technique.
+Key observations:
+- All 5 login attempts failed — target account was not compromised
+- Wazuh correctly logged and classified each failed attempt in real time
+- No aggregate brute-force correlation rule (5712/5720) fired — attempt volume
+  (5 tries) stayed below Wazuh's default threshold (~8 failures/120s)
+- "Non-existent user" classification on a known-valid account suggests a
+  PAM/sshd config detail worth reviewing separately
+---
+## Action Taken
+- Confirmed alerts in Wazuh dashboard → Security Events
+- Verified rule IDs, severity level, and MITRE mapping for the alert
+- Cross-checked raw sshd/PAM logs against dashboard alert data
+- Documented full attack chain (Kali → sshd → Wazuh agent → Wazuh manager → alert)
+- No remediation required — simulated/lab exercise
+---
+## Recommendations
+1. Lower brute-force correlation rule threshold for better lab visibility
+2. Re-run test with higher attempt volume to trigger aggregate brute-force alert (5712-style)
+3. Review PAM/sshd config — investigate why a valid user triggered "non-existent user" classification
+4. Add active-response rule (e.g., auto-block IP after N failed attempts) as next lab milestone
+
+<img width="956" height="436" alt="wazuh2" src="https://github.com/user-attachments/assets/53fbf109-2276-4fc8-b62e-98ce9d029d4b" />
+<img width="959" height="437" alt="wazuh3" src="https://github.com/user-attachments/assets/7007c89b-b965-4cfa-ab58-4dc2fe97786e" />
+
+---
+
 ## Investigation Reports
 
 ### 1. OSINT Report — IP 185.234.219.4
