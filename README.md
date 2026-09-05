@@ -471,11 +471,15 @@ and targeted attack rather than opportunistic malware.
 
 ## Status: 
 Open — Workstation isolated, IR team engaged
+---
 ## Type: 
-Fileless Malware / PowerShell Attack / Potential Financial Data Breach
+Fileless Malware / Powershell Attack / Potential Financial Data Breach
+
 ---
 
 ### Ticket #011 -- SSH Brute Force Attack Detected via Wazuh SIEM
+
+
 **Ticket ID:** INC-011
 **Title:** SSH Brute Force Attempt Against wazuh-server (Simulated)
 **Date/Time Detected:** September 04, 2026 — 1:19 PM
@@ -484,8 +488,9 @@ Fileless Malware / PowerShell Attack / Potential Financial Data Breach
 **Status:** Closed — Simulated/Confirmed Detection
 ---
 ## Incident Summary
+
 Wazuh SIEM detected a series of failed SSH authentication attempts against
-**wazuh-server (192.168.56.102)** originating from **kali-agent**. The activity
+wazuh-server (192.168.56.102) originating from kali-agent. The activity
 matched a password-guessing / brute-force pattern — multiple rapid login attempts
 against user `samra` using a wordlist attack tool (Hydra). No successful
 authentication occurred.
@@ -535,8 +540,7 @@ Key observations:
 
 ## Wazuh Dashboard
 <img width="956" height="436" alt="wazuh2" src="https://github.com/user-attachments/assets/53fbf109-2276-4fc8-b62e-98ce9d029d4b" />
-
-
+---
 <img width="959" height="437" alt="wazuh3" src="https://github.com/user-attachments/assets/7007c89b-b965-4cfa-ab58-4dc2fe97786e" />
 
 ---
