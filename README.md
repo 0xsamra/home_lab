@@ -550,6 +550,80 @@ Key observations:
 
 ---
 
+### Ticket #012 -- Repeated Failed Sudo Authentication Attempts Detected
+
+**Ticket ID:** INC-012
+**Title:** Failed Sudo/Privilege Escalation Attempts on wazuh-server (Simulated)
+**Date/Time Detected:** September 05, 2026 — 11:38 AM
+**Analyst:** Samra Sharafat Ali (0xsamra)
+**Severity:** Low-Medium
+**Status:** Closed — Simulated/Confirmed Detection
+
+---
+## Incident Summary
+
+Wazuh SIEM detected multiple rapid failed sudo authentication attempts on
+**wazuh-server** under user `samra`. The activity simulated an attacker
+attempting local privilege escalation after gaining shell access — repeatedly
+trying incorrect passwords against `sudo` in a short time window.
+
+---
+## Affected Asset
+| Field | Detail |
+|---|---|
+| **Host** | wazuh-server |
+| **Department** | Home Lab / SOC Training Environment |
+| **Detection Source** | Wazuh SIEM |
+| **Detection Time** | 11:38 AM — September 05, 2026 |
+| **Process** | sudo / PAM / unix_chkpwd |
+| **User Account** | samra |
+| **Execution Method** | Local failed privilege escalation attempts (5x) |
+---
+## Indicators of Compromise (IOCs)
+- 10 correlated authentication-failure events (2 per attempt) in a ~10-second window
+- Rule 5503 — PAM: User login failed
+- Rule 5557 — unix_chkpwd: Password check failed
+- MITRE ATT&CK: T1110.001 (Password Guessing)
+- Tactic: Credential Access
+- All 5 sudo attempts failed — no privilege escalation achieved
+---
+## Initial Analysis
+This activity matches a local privilege-escalation attempt via repeated sudo
+password guessing. Key observations:
+- Each failed sudo attempt generated two paired alerts — one from PAM (session-level)
+  and one from unix_chkpwd (password-check level) — confirming Wazuh captures
+  sudo failures at multiple log layers
+- No successful privilege escalation occurred
+- Rapid succession (5 attempts in ~10 seconds) is a clear brute-force signature
+  distinct from a normal accidental mistyped password
+---
+## Action Taken
+- Confirmed alerts in Wazuh dashboard → Security Events
+- Verified rule IDs, severity level, and MITRE mapping for the alert
+- Cross-checked PAM and unix_chkpwd log entries against dashboard alert data
+- Documented full attack chain (local shell → sudo attempts → PAM/unix_chkpwd →
+  Wazuh agent → Wazuh manager → alert)
+- No remediation required — simulated/lab exercise
+---
+## Recommendations
+1. Implement account lockout policy after N failed sudo attempts (e.g., via `pam_tally2`
+   or `faillock`)
+2. Create a correlation rule to flag 3+ failed sudo attempts within 60 seconds as a
+   distinct "privilege escalation attempt" alert
+3. Enable alerting/notification (email/Slack) for sudo failure spikes on critical hosts
+4. Review sudoers logging configuration for completeness across all accounts
+---
+## Wazuh Dashoboard
+
+<img width="953" height="437" alt="image" src="https://github.com/user-attachments/assets/19900f5e-9169-4bdd-aea8-1c61e03700e7" />
+
+---
+
+<img width="940" height="355" alt="image" src="https://github.com/user-attachments/assets/82cef8be-2f6f-400a-a9d8-35d84d3c6926" />
+
+---
+
+
 ## Investigation Reports
 
 ### 1. OSINT Report — IP 185.234.219.4
