@@ -136,4 +136,4 @@ Despite the auth.log gap, the earlier SSH failures were still captured by Wazuh 
 
 - Confirming an agent shows "Active" isn't the same as confirming it's actually shipping the log sources you care about — always verify the `<localfile>` config matches what the OS actually generates.
 - Kali's default Wazuh agent profile is tuned for host/process telemetry (`netstat`, `last`, `df`), **not** auth logging — SSH monitoring has to be added explicitly.
-- VirtualBox networking mode is a real operational constraint: Host-Only-only isolates a VM from the internet, which breaks package installs mid-troubleshooting. **Dual-adapter (NAT + Host-Only)** avoids this.<img width="959" height="437" alt="wazuh 1" src="https://github.com/user-attachments/assets/8feda9d6-e77b-4af6-a34b-0ffc6e8f1168" />
+- VirtualBox networking mode is a real operational constraint: Host-Only-only isolates a VM from the internet, which breaks package installs mid-troubleshooting. **Dual-adapter (NAT + Host-Only)** avoids this.
