@@ -137,3 +137,63 @@ Despite the auth.log gap, the earlier SSH failures were still captured by Wazuh 
 - Confirming an agent shows "Active" isn't the same as confirming it's actually shipping the log sources you care about — always verify the `<localfile>` config matches what the OS actually generates.
 - Kali's default Wazuh agent profile is tuned for host/process telemetry (`netstat`, `last`, `df`), **not** auth logging — SSH monitoring has to be added explicitly.
 - VirtualBox networking mode is a real operational constraint: Host-Only-only isolates a VM from the internet, which breaks package installs mid-troubleshooting. **Dual-adapter (NAT + Host-Only)** avoids this.
+
+
+## — Custom Wazuh Detection Rules
+
+### Objective
+Create custom Wazuh rules to detect SSH brute-force attempts and sudo 
+privilege escalation, mapped to MITRE ATT&CK techniques.
+
+### Custom Rules Created
+File: `/var/ossec/etc/rules/local_rules.xml`
+
+​```xml
+<rule id="100010" level="10">
+    <if_sid>5760</if_sid>
+    <match>failed</match>
+    <description>Custom Rule: Multiple SSH authentication failures detected</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+</rule>
+
+<rule id="100011" level="12">
+    <if_sid>5503</if_sid>
+    <description>Custom Rule: Sudo privilege escalation attempt detected</description>
+    <mitre>
+      <id>T1548</id>
+    </mitre>
+</rule>
+​```
+
+**Note:** Originally based rule 100010 on `if_sid 5710`, but discovered 
+via `alerts.log` inspection that this system's SSH failures actually 
+trigger rule `5760`. Corrected the `if_sid` and rule fired successfully.
+
+### Testing Method
+- Used Hydra from Kali to simulate SSH brute-force:
+  `hydra -l root -P /tmp/small.txt ssh://192.168.56.102 -t 1 -w 3`
+- Triggered `sudo` command on Ubuntu server to test rule 100011
+
+### Results
+| Rule ID | Level | MITRE | Description | Status |
+|---------|-------|-------|--------------|--------|
+| 100010  | 10    | T1110 | SSH auth failures | ✅ Fired |
+| 100011  | 12    | T1548 | Sudo privilege escalation | ✅ Fired |
+
+### Screenshots
+<img width="1280" height="800" alt="custom rule file" src="https://github.com/user-attachments/assets/1cf74c93-24e1-424f-8f94-adc259ef671b" />
+
+---
+<img width="943" height="431" alt="100010" src="https://github.com/user-attachments/assets/941b2fad-3a39-434f-9843-e3776de077f4" />
+
+---
+<img width="943" height="436" alt="custom rule" src="https://github.com/user-attachments/assets/0924ac44-fc5b-4523-9b03-2e260e1f929d" />
+
+
+### Key Learning
+Wazuh's built-in rule 2502 already does generic brute-force correlation 
+via syslog pattern matching, but a custom SSH-specific rule chained to 
+the exact parent rule ID gives clearer, more targeted attribution and 
+practice writing MITRE-mapped detections from scratch.
