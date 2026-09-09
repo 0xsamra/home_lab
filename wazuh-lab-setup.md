@@ -197,3 +197,95 @@ Wazuh's built-in rule 2502 already does generic brute-force correlation
 via syslog pattern matching, but a custom SSH-specific rule chained to 
 the exact parent rule ID gives clearer, more targeted attribution and 
 practice writing MITRE-mapped detections from scratch.
+
+---
+
+## File Integrity Monitoring (FIM) Lab
+
+### Objective
+Verify Wazuh's File Integrity Monitoring by modifying a test file and 
+confirming detection through real-time syscheck alerts.
+
+### Setup
+Added a custom directory to Wazuh's FIM configuration to monitor `/tmp` 
+(not watched by default, since it's normally excluded due to high 
+volatility).
+
+File: `/var/ossec/etc/ossec.conf` — inside `<syscheck>` block:
+
+​```xml
+<directories realtime="yes">/tmp</directories>
+​```
+
+**Key lesson learned:** Initially added this config to the Wazuh 
+**server's** `ossec.conf`, but the test file was created on the 
+**Kali agent** — a completely separate machine with its own independent 
+FIM configuration. No alerts appeared until I added the same 
+`<directories>` line to Kali's agent config and restarted the 
+`wazuh-agent` service (not `wazuh-manager`, since agents and the 
+manager are separate services). This clarified that FIM monitoring is 
+configured **per-agent**, not centrally from the manager.
+
+### Testing Method
+On Kali (agent):
+​```bash
+echo "original content" > /tmp/test-file.txt
+sleep 5
+echo "modified content" >> /tmp/test-file.txt
+​```
+
+### Results
+Wazuh detected both file modifications in real time via rule 550 
+("Integrity checksum changed"):
+
+| Time | Agent | Path | Event | Rule ID | Level |
+|------|-------|------|-------|---------|-------|
+| Sep 9, 12:49:36 | kali-agent | /tmp/test-file.txt | modified | 550 | 7 |
+| Sep 9, 12:49:52 | kali-agent | /tmp/test-file.txt | modified | 550 | 7 |
+
+Each alert included full attribute-level change tracking:
+- File size change (e.g., 136 → 153 → 170 bytes)
+- Old/new MD5, SHA1, and SHA256 checksums
+- Modification timestamp delta
+
+This demonstrates why FIM is effective for tampering detection: even a 
+single-byte change produces a completely different cryptographic hash, 
+making unauthorized modifications (e.g., a backdoor added to 
+`/etc/passwd`) immediately and reliably detectable.
+
+**Bonus finding:** The same dashboard view also caught legitimate 
+system activity — `/etc/resolv.conf` was modified twice (Sep 5 and 
+Sep 9), most likely from normal DHCP/network renewal — showing FIM 
+monitors *all* changes, not just malicious ones, and highlighting the 
+importance of baselining "known good" changes to reduce alert fatigue 
+in a real SOC environment.
+
+### Screenshots
+<img width="1280" height="800" alt="kali syscheck set" src="https://github.com/user-attachments/assets/1ebda9e1-8128-40ef-b835-82b00e5a7395" />
+
+---
+
+<img width="1280" height="800" alt="FIM ubuntu alert" src="https://github.com/user-attachments/assets/5f908e91-323f-41c6-8083-73cd19111835" />
+
+---
+
+<img width="947" height="409" alt="FIM wazuh" src="https://github.com/user-attachments/assets/0ddd34e8-de60-4858-a3bc-94304f46c335" />
+
+---
+
+<img width="938" height="253" alt="wazuh FIM graph1" src="https://github.com/user-attachments/assets/4f499957-e823-4600-8352-4f060f2ba0ea" />
+
+---
+
+<img width="947" height="389" alt="wazuh FIM dashboard" src="https://github.com/user-attachments/assets/4aeb9c57-50a3-4b20-8668-1707b3b577db" />
+
+---
+
+
+### Key Learning
+File Integrity Monitoring configuration lives on each individual agent, 
+not the central manager — a config change on the Wazuh server only 
+affects the server's own filesystem. This is an important operational 
+detail for real-world deployments with many agents, where FIM policies 
+typically need to be pushed via centralized agent group configuration 
+rather than edited per-machine.
