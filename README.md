@@ -623,6 +623,69 @@ password guessing. Key observations:
 
 ---
 
+# Ticket #013 — Unauthorized Modification of /etc/passwd Detected on Linux Server
+
+**Ticket ID:** INC-012  
+**Title:** Unauthorized Modification in Linux Server  
+**Date/Time Detected:** September 9, 2026 — 3:00 AM  
+**Analyst:** Samra (0xsamra)  
+**Severity:** Critical  
+**Status:** Open — Under Investigation
+
+---
+
+## Incident Summary
+
+Wazuh Integrity Monitoring detected that the `/etc/passwd` file was modified on a Linux server at 3:00 AM. No authorized change management ticket exists for this activity. The file contains critical user account information, making any unauthorized modification a high-severity concern.
+
+---
+
+## Field Details
+
+| Field | Detail |
+|-------|--------|
+| Host | Linux Server |
+| Environment | Monitoring |
+| Detection Source | Wazuh Integrity Monitoring |
+| Detection Time | 3:00 AM, September 9, 2026 |
+| Affected File | `/etc/passwd` |
+| Process | Unauthorized modification of `/etc/passwd` |
+
+
+---
+
+## Indicators of Compromise (IOCs)
+
+- Modification occurred at 3:00 AM — an unusual and suspicious time window
+- No authorized change management ticket exists for this change
+- **Suspected Tactic:** Backdoor account creation
+
+---
+
+## Initial Analysis
+
+This activity is consistent with an attempt to gain unauthorized access via modification of `/etc/passwd`, a file that stores user account information. The absence of an authorized change ticket, combined with the off-hours timing (3:00 AM), significantly raises the likelihood that this was a malicious or unauthorized action rather than routine system administration.
+
+
+---
+
+## Actions Taken
+
+- Confirmed the alert in the Wazuh dashboard under Security Events
+- Verified rule ID, severity level, and MITRE ATT&CK mapping for the alert
+- Changed the password on the affected Linux server as an immediate containment step
+- Documented the full incident and escalated to a senior analyst for further investigation
+
+---
+
+## Recommendations
+
+- Enable multi-factor authentication (MFA) on the Linux server
+- Implement continuous monitoring of Linux server activity
+- Review other critical files and directories for unauthorized changes, and apply additional protections to files essential to user and system operations
+
+---
+
 
 ## Investigation Reports
 
