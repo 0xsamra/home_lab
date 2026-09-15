@@ -289,3 +289,7 @@ affects the server's own filesystem. This is an important operational
 detail for real-world deployments with many agents, where FIM policies 
 typically need to be pushed via centralized agent group configuration 
 rather than edited per-machine.
+
+
+ ## Related Reports
+ - [Full Attack Chain Simulation](./attack-simulation-report-1.md) — Nmap recon + Hydra brute force against this lab, with Wazuh detection results
