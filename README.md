@@ -625,7 +625,7 @@ password guessing. Key observations:
 
 # Ticket #013 — Unauthorized Modification of /etc/passwd Detected on Linux Server
 
-**Ticket ID:** INC-012  
+**Ticket ID:** INC-013 
 **Title:** Unauthorized Modification in Linux Server  
 **Date/Time Detected:** September 9, 2026 — 3:00 AM  
 **Analyst:** Samra (0xsamra)  
@@ -683,6 +683,56 @@ This activity is consistent with an attempt to gain unauthorized access via modi
 - Enable multi-factor authentication (MFA) on the Linux server
 - Implement continuous monitoring of Linux server activity
 - Review other critical files and directories for unauthorized changes, and apply additional protections to files essential to user and system operations
+
+---
+
+# Ticket #014 — Unauthorized Modification of /etc/passwd Detected on Linux Server
+
+**Ticket ID:** INC-014 
+**Title:** Unauthorized Access Attempt 
+**Date/Time Detected:** September 20, 2026   
+**Analyst:** Samra (0xsamra)  
+**Severity:** High
+**Status:** Open — Under Investigation
+
+---
+
+## Summary
+Wazuh detected a brute-force SSH authentication attack originating from an internal/local IP address targeting the Wazuh server itself. No penetration test was scheduled or authorized during this window.
+
+## Details
+
+| Field | Value |
+|---|---|
+| **Source IP** | 192.168.56.101 |
+| **Target** | Wazuh server (SSH, port 22) |
+| **Tool identified** | Hydra (based on request pattern/signature) |
+| **Failed attempts** | 847 |
+| **Time window** | 3 minutes |
+| **Authorized pentest scheduled?** | No |
+
+## Detection
+Wazuh's SSH authentication ruleset correlated repeated failed login attempts from a single source within a short window and escalated severity accordingly (consistent with rules covering repeated auth failures and brute-force thresholds).
+
+## MITRE ATT&CK Mapping
+- **T1110 — Brute Force**
+- Tactic: Credential Access
+
+## Impact Assessment
+- No successful authentication was recorded during this window (pending confirmation — see Next Steps).
+- Target is the Wazuh server itself, meaning a successful compromise here would affect the SIEM's integrity and logging trust chain, not just a single endpoint.
+- Volume (847 attempts / 3 min ≈ 4-5 attempts/sec) indicates automated tooling, not manual login error.
+
+## Next Steps
+1. Confirm no successful authentication occurred from 192.168.56.101 during the attack window (cross-check Authentication success metric).
+2. Block/rate-limit source IP 192.168.56.101 at the firewall or via `fail2ban` / SSH rate-limiting.
+3. Verify whether 192.168.56.101 corresponds to a known/authorized internal host — if it's a rogue or unexpected device on the network, escalate for asset investigation.
+4. Review SSH configuration on the Wazuh server: disable root login over SSH if still enabled, enforce key-based auth.
+5. Confirm with management/team whether any authorized testing was scheduled and simply undocumented, to rule out false-positive escalation.
+6. If confirmed malicious and unauthorized, escalate to Incident Response for formal handling.
+
+## Conclusion
+This activity matches the signature of an unauthorized brute-force attempt against a critical internal asset (the SIEM server). Given no pentest was scheduled, this should be treated as a genuine security incident pending containment and root-cause confirmation, not routine noise.
 
 ---
 
