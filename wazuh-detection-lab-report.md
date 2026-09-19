@@ -19,11 +19,22 @@ skills in alert triage and incident documentation.
 ## Attacks Simulated & Detected
 
 ### 1. SSH Brute Force
-- **Tool:** Hydra / manual SSH attempts
+- **Tool:** Hydra 
 - **Command:** for i in {1..10}; do ssh wronguser@IP; done
-- **Wazuh Rule Triggered:** [rule ID you saw]
-- **Alert Level:** [level you saw]
+- **Wazuh Rule Triggered:** 5760
+- **Alert Level:** 5
 - **MITRE ATT&CK:** T1110 — Brute Force
+---
+
+<img width="947" height="407" alt="SSH project 1" src="https://github.com/user-attachments/assets/f35e8d25-f3a0-4563-851e-67b8cde8cb00" />
+
+---
+
+<img width="943" height="323" alt="SSH project2" src="https://github.com/user-attachments/assets/6ee24d02-e6ea-4d82-ae17-3f7dc8c3ccbd" />
+
+---
+
+<img width="674" height="404" alt="SSH project3" src="https://github.com/user-attachments/assets/5bd64d25-a6f1-47d1-9fbc-46b21ea7e8c1" />
 
 ### 2. Port Scanning
 - **Tool:** Nmap
