@@ -623,7 +623,7 @@ password guessing. Key observations:
 
 ---
 
-# Ticket #013 — Unauthorized Modification of /etc/passwd Detected on Linux Server
+### Ticket #013 — Unauthorized Modification of /etc/passwd Detected on Linux Server
 
 **Ticket ID:** INC-013 
 **Title:** Unauthorized Modification in Linux Server  
@@ -686,7 +686,7 @@ This activity is consistent with an attempt to gain unauthorized access via modi
 
 ---
 
-# Ticket #014 — Unauthorized Modification of /etc/passwd Detected on Linux Server
+### Ticket #014 — Unauthorized Modification of /etc/passwd Detected on Linux Server
 
 **Ticket ID:** INC-014 
 **Title:** Unauthorized Access Attempt 
