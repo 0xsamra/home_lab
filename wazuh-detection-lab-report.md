@@ -39,8 +39,8 @@ skills in alert triage and incident documentation.
 ### 2. Port Scanning
 - **Tool:** Nmap
 - **Command:** nmap -sS 192.168.56.102
-- **Wazuh Rule Triggered:** [rule ID]
-- **Alert Level:** [level]
+- **Wazuh Rule Triggered:** No alert fired (common while using namp)
+- **Alert Level:** Low-Medium
 - **MITRE ATT&CK:** T1595 — Active Scanning
 
 ### 3. File Integrity Violation
@@ -56,6 +56,7 @@ skills in alert triage and incident documentation.
 ---
 
 <img width="947" height="409" alt="FIM wazuh" src="https://github.com/user-attachments/assets/90ce2744-1181-4fab-b2f5-70f5c2ca201e" />
+
 ---
 
 ## Custom Rules Written
@@ -63,7 +64,17 @@ skills in alert triage and incident documentation.
 - Rule 100002 — Sudo privilege escalation
 
 ## Key Findings
-[what you learned from running these simulations]
+Successfully configured and operated Wazuh as a home SIEM for security monitoring and alert investigation.
+Simulated SSH brute-force attacks and observed Wazuh detecting repeated authentication failures.
+Used File Integrity Monitoring (FIM) to detect unauthorized modification of a sensitive system file such as /etc/passwd.
+Learned that not every reconnaissance activity, such as an Nmap scan, automatically generates an alert with default Wazuh rules.
+Practiced investigating alerts using source IPs, timestamps, rule IDs, alert levels, and MITRE ATT&CK mappings.
+Created custom Wazuh rules to improve detection of SSH authentication failures and suspicious sudo activity.
+Developed practical experience with the SOC workflow: generate activity → detect → investigate → classify → document.
+
 
 ## Conclusion
-[what this lab demonstrates about your SOC skills]
+This lab provided hands-on experience in building and operating a SIEM environment using Wazuh. By simulating brute-force attempts, network reconnaissance, and file integrity violations, I gained practical experience in detecting and investigating security events.
+
+The lab also improved my understanding of Wazuh rules, File Integrity Monitoring (FIM), MITRE ATT&CK mapping, and custom detection logic. Overall, this project demonstrates foundational SOC analyst skills, including security monitoring, alert triage, incident investigation, and detection engineering.
+
