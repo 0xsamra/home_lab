@@ -49,6 +49,15 @@ skills in alert triage and incident documentation.
 - **Alert Level:** Critical
 - **MITRE ATT&CK:** T1136 — Create Account
 
+---
+
+<img width="1280" height="800" alt="FIM ubuntu alert" src="https://github.com/user-attachments/assets/af838054-cf28-4fd1-8a4b-b6ba9147f90c" />
+
+---
+
+<img width="947" height="409" alt="FIM wazuh" src="https://github.com/user-attachments/assets/90ce2744-1181-4fab-b2f5-70f5c2ca201e" />
+---
+
 ## Custom Rules Written
 - Rule 100001 — SSH authentication failures
 - Rule 100002 — Sudo privilege escalation
