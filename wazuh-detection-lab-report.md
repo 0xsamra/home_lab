@@ -46,8 +46,8 @@ skills in alert triage and incident documentation.
 ### 3. File Integrity Violation
 - **File Modified:** /etc/passwd
 - **Detection Method:** Wazuh Integrity Monitoring
-- **Alert Level:** Critical
-- **MITRE ATT&CK:** T1136 — Create Account
+- **Alert Level:** 7
+- **MITRE ATT&CK:** T1098 — Account Manipulation
 
 ---
 
@@ -60,8 +60,13 @@ skills in alert triage and incident documentation.
 ---
 
 ## Custom Rules Written
-- Rule 100001 — SSH authentication failures
-- Rule 100002 — Sudo privilege escalation
+- Rule 100010 — SSH authentication failures
+- Rule 100011 — Sudo privilege escalation
+
+<img width="1280" height="800" alt="custom rule file" src="https://github.com/user-attachments/assets/c48ce17a-dce6-41bd-98ce-5a78aec7c6e5" />
+
+---
+
 
 ## Key Findings
 - Successfully configured and operated Wazuh as a home SIEM for security monitoring and alert investigation.
