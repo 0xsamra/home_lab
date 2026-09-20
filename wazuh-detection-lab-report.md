@@ -64,17 +64,17 @@ skills in alert triage and incident documentation.
 - Rule 100002 — Sudo privilege escalation
 
 ## Key Findings
-Successfully configured and operated Wazuh as a home SIEM for security monitoring and alert investigation.
-Simulated SSH brute-force attacks and observed Wazuh detecting repeated authentication failures.
-Used File Integrity Monitoring (FIM) to detect unauthorized modification of a sensitive system file such as /etc/passwd.
-Learned that not every reconnaissance activity, such as an Nmap scan, automatically generates an alert with default Wazuh rules.
-Practiced investigating alerts using source IPs, timestamps, rule IDs, alert levels, and MITRE ATT&CK mappings.
-Created custom Wazuh rules to improve detection of SSH authentication failures and suspicious sudo activity.
-Developed practical experience with the SOC workflow: generate activity → detect → investigate → classify → document.
+- Successfully configured and operated Wazuh as a home SIEM for security monitoring and alert investigation.
+- Simulated SSH brute-force attacks and observed Wazuh detecting repeated authentication failures.
+- Used File Integrity Monitoring (FIM) to detect unauthorized modification of a sensitive system file such as /etc/passwd.
+- Learned that not every reconnaissance activity, such as an Nmap scan, automatically generates an alert with default Wazuh rules.
+- Practiced investigating alerts using source IPs, timestamps, rule IDs, alert levels, and MITRE ATT&CK mappings.
+- Created custom Wazuh rules to improve detection of SSH authentication failures and suspicious sudo activity.
+- Developed practical experience with the SOC workflow: generate activity → detect → investigate → classify → document.
 
 
 ## Conclusion
-This lab provided hands-on experience in building and operating a SIEM environment using Wazuh. By simulating brute-force attempts, network reconnaissance, and file integrity violations, I gained practical experience in detecting and investigating security events.
+- This lab provided hands-on experience in building and operating a SIEM environment using Wazuh. By simulating brute-force attempts, network reconnaissance, and file integrity violations, I gained practical experience in detecting and investigating security events.
 
-The lab also improved my understanding of Wazuh rules, File Integrity Monitoring (FIM), MITRE ATT&CK mapping, and custom detection logic. Overall, this project demonstrates foundational SOC analyst skills, including security monitoring, alert triage, incident investigation, and detection engineering.
+- The lab also improved my understanding of Wazuh rules, File Integrity Monitoring (FIM), MITRE ATT&CK mapping, and custom detection logic. Overall, this project demonstrates foundational SOC analyst skills, including security monitoring, alert triage, incident investigation, and detection engineering.
 
