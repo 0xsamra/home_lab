@@ -751,13 +751,14 @@ A junior developer accidentally ran rm -rf on a production server, permanently d
 
 ## Details
 |Field | Value | 
-|**Affected Asset**|	Production web server (e-commerce website)
-|**Command Executed**|	rm -rf (wrong path or directory)
-|**Executed By**|	Junior developer (accidental, no malicious intent identified)
-|**Incident Type**|	Insider Threat - Human Error (Unintentional)
-|**Service Impact**|	Full outage of customer-facing website
-|**Last Successful Backup**|	More than 7 days ago
-|**Change Request / Approval**|	None identified
+|---|---|
+| **Affected Asset** |	Production web server (e-commerce website) |
+| **Command Executed** |	rm -rf (wrong path or directory) |
+| **Executed By** |	Junior developer (accidental, no malicious intent identified) |
+| **Incident Type** |	Insider Threat - Human Error (Unintentional) |
+| **Service Impact** |	Full outage of customer-facing website |
+| **Last Successful Backup** |	More than 7 days ago |
+| **Change Request / Approval** |	None identified |
 
 ## Detection
 
