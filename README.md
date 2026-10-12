@@ -736,6 +736,84 @@ This activity matches the signature of an unauthorized brute-force attempt again
 
 ---
 
+### Ticket #015 - Accidental Deletion of Production Application Files via rm -rf
+
+**Ticket ID:** INC-015
+**Title:** Production Outage Caused by Accidental Command Execution (Insider Threat / Human Error)
+**Date/Time Detected:** Friday, 2:00 PM
+**Analyst:** Samra (0xsamra)
+**Severity:** Critical (P1)
+**Status:** Open - Recovery in Progress
+
+## Summary
+
+A junior developer accidentally ran rm -rf on a production server, permanently deleting critical application files. The server hosts a customer-facing e-commerce website, which went down at 2:00 PM on a Friday. No backup was taken in the last 7 days, so recovery is complicated and some data loss is likely.
+
+## Details
+|Field | Value | 
+|**Affected Asset**|	Production web server (e-commerce website)
+|**Command Executed**|	rm -rf (wrong path or directory)
+|**Executed By**|	Junior developer (accidental, no malicious intent identified)
+|**Incident Type**|	Insider Threat - Human Error (Unintentional)
+|**Service Impact**|	Full outage of customer-facing website
+|**Last Successful Backup**|	More than 7 days ago
+|**Change Request / Approval**|	None identified
+
+## Detection
+
+The outage was detected through monitoring and availability alerts at 2:00 PM, when the e-commerce website stopped responding. The developer then confirmed that a destructive command had been run on the production server. This was not a security tool detection but a service-availability alert followed by a self-report.
+
+## MITRE ATT&CK Mapping
+**T1485 - Data Destruction** (impact matches, but the cause was accidental, not adversarial)
+Tactic: Impact
+Note: No malicious actor identified. The mapping is for classification and detection-engineering purposes only.
+## Impact Assessment
+**Availability:** Severely impacted. The site is offline during peak Friday traffic.
+**Integrity:** Impacted. Application files and configuration were deleted.
+**Confidentiality:** No evidence of data exposure at this stage.
+**Business:** Lost online sales, customer frustration, brand damage, and possible SLA breaches.
+**Data loss risk:** Orders, uploads, and database changes since the last backup (7+ days) may be lost if stored on the affected server.
+
+## Immediate Containment Actions
+Declare a P1 incident and notify the management escalation chain.
+Freeze all activity on the affected server and stop further changes.
+Isolate the server from CI/CD and deployment pipelines to prevent overwriting data.
+Do not reboot or write to the disk, to preserve recoverable data.
+Take a disk snapshot/image of the current state for recovery and forensics.
+Put up a maintenance page for customers and inform customer support.
+
+## Investigation Steps
+Interview the developer (non-punitive) to confirm the exact command, path, and time.
+Review shell history (~/.bash_history) and auth logs (/var/log/auth.log or /var/log/secure).
+Check sudo and command audit logs (auditd) to verify what was deleted.
+Review SIEM and access logs to rule out malicious activity or account compromise.
+Identify why a junior developer had write access to production.
+Determine exactly which files and directories were deleted.
+## Recovery Plan
+Attempt file recovery on the disk image (not the live disk) using extundelete, testdisk, or photorec.
+Check cloud/VM provider snapshots (AWS, Azure, VMware) for a more recent restore point.
+Redeploy the application from Git or the CI/CD pipeline.
+Restore the database from the latest backup and apply binary/transaction logs if available.
+Restore any remaining files from the 7+ day old backup.
+Validate functionality in a test state before bringing the site back live.
+Monitor closely after restoration.
+
+## Preventive Recommendations
+Enforce least privilege and restrict production access to authorized staff.
+Automate daily backups, with monitoring and alerts on failure.
+Follow the 3-2-1 backup rule and test restores regularly.
+Separate development, staging, and production environments.
+Require change management and approval for production changes.
+Use privileged access management (PAM) with session recording.
+Configure safe aliases (rm -i) or use trash-cli.
+Deploy file integrity monitoring (FIM) with alerting.
+Use Infrastructure as Code and CI/CD for repeatable redeployment.
+Train junior staff on safe production practices and maintain a tested DR plan.
+## Conclusion
+
+This incident was caused by human error, not malicious intent, but it had critical business impact because of weak access controls and a failed backup process. It should be handled as a P1 incident until the site is restored and verified. The post-incident review should be blameless and focus on fixing the process gaps: access control, backup monitoring, and change management.
+
+---
 
 ## Investigation Reports
 
