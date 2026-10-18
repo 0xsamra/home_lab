@@ -938,3 +938,10 @@ This incident was caused by human error, not malicious intent, but it had critic
 
 ### Wazuh Dashboard — Kali Agent Active
 <img width="959" height="437" alt="wazuh 1" src="https://github.com/user-attachments/assets/0d61f31c-6b35-482c-b706-233f7d7cac5a" />
+
+## Tools Built
+
+### IP Reputation Checker
+Automated OSINT tool that queries AbuseIPDB and
+VirusTotal APIs to investigate suspicious IPs.
+- [View Tool](tools/ip-checker.py)

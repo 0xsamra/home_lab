@@ -14,3 +14,11 @@ Python CLI tool that checks an IP against AbuseIPDB and VirusTotal and prints a 
 ## Features
 - Input validation, request timeouts, error handling
 - API keys read from environment variables (never hardcoded)
+
+## Sample output
+
+### Known malicious IP
+![Malicious IP result](screenshots/malicious-ip.png)
+
+### Clean server (scanme.nmap.org)
+![Clean Nmap server result](screenshots/nmap-clean-ip.png)
