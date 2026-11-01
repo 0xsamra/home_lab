@@ -947,6 +947,12 @@ This incident was caused by human error, not malicious intent, but it had critic
 - [View Full Report](osint-report-91.92.128.47.md)
 
 ---
+## SOC Playbook
+Documented incident response procedures for common
+attack types.
+- [View Playbook](soc-playbook.md)
+- 
+---
 
 ## Key Knowledge
 
