@@ -951,7 +951,6 @@ This incident was caused by human error, not malicious intent, but it had critic
 Documented incident response procedures for common
 attack types.
 - [View Playbook](soc-playbook.md)
-- 
 ---
 
 ## Key Knowledge
@@ -1032,10 +1031,10 @@ attack types.
 ## Certifications Earned
 - ✅ Fortinet — Introduction to the Threat Landscape (July 2026)
 - ✅ Fortinet — Cybersecurity and Cloud Fundamentals (July 2026)
+- NAVTTC Certified Ethical Hacker (September 2026)
 
 ## Certifications In Progress
 - CEH — Expected August 2026
-- NAVTTC Cybersecurity — Expected August 2026
 
 ---
 
